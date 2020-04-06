@@ -12,9 +12,8 @@ const WelcomeScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
         flexWrap: 'wrap',
-        marginTop: 60,
+        marginTop: 28,
         backgroundColor: '#fff'
     }
 });

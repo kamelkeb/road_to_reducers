@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import PlusMinusButtons from '../../components/PlusMinusButtons/PlusMinusButtons';
 
 // *** Un reducer est une fonction
 // qui prend deux argument, le premier sera le state courant
@@ -12,11 +13,11 @@ import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity, SafeAreaVie
 const premierReducer = (state, action) => {
     switch (action.type) {
         case 'affectRed':
-            return { ...state, red: state.red + action.payload };
-        case 'affetBlue':
-            return { ...state, blue: state.blue + action.payload };
+            return { ...state, red: affectColor(state.red, action.payload) };
+        case 'affectBlue':
+            return { ...state, blue: affectColor(state.blue, action.payload) };
         case 'affectGreen':
-            return { ...state, green: state.green + action.payload };
+            return { ...state, green: affectColor(state.green, action.payload) };
         case 'assombrir':
             return {
                 green: state.green - action.payload,
@@ -28,6 +29,8 @@ const premierReducer = (state, action) => {
             return state;
     }
 };
+
+const affectColor = (color, colorIncrement) => Math.min(Math.max(color + colorIncrement, 0), 255);
 
 const ColorsScreen = (props) => {
     // udeReducer est une fonction spéciale (un hook), qui prend dans le cas présent
@@ -41,7 +44,6 @@ const ColorsScreen = (props) => {
 
     const colorIncrement = 10;
 
-    //const affectNum = (colorIncrement) => (num) => Math.max((num + colorIncrement) % 256, 0);
     //const applicationPartielle = affectNum(4)
     //j'obtiendrai une fonction (colorIncrement) => Math.max(((4 +colorIncrement)%256),0)
     // applicationPartielle(10)
@@ -51,50 +53,14 @@ const ColorsScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             <Text>Colors Screen</Text>
-            <View style={styles.buttonsBlock}>
-                <Text>Rouge</Text>
-                <Button
-                    style={styles.buttonStyle}
-                    title="Augmenter"
-                    onPress={() => dispatch({ type: 'affectRed', payload: colorIncrement })}
-                />
-                <Button
-                    style={styles.buttonStyle}
-                    title="Diminuer"
-                    onPress={() => dispatch({ type: 'affectRed', payload: -colorIncrement })}
-                />
-            </View>
-            <View style={styles.buttonsBlock}>
-                <Text>Vert</Text>
-                <Button
-                    style={styles.buttonStyle}
-                    title="Augmenter"
-                    onPress={() => dispatch({ type: 'affectGreen', payload: colorIncrement })}
-                />
-                <Button
-                    style={styles.buttonStyle}
-                    title="Diminuer"
-                    onPress={() => dispatch({ type: 'affectGreen', payload: -colorIncrement })}
-                />
-            </View>
-            <View style={styles.buttonsBlock}>
-                <Text>Bleu</Text>
-                <Button
-                    style={styles.buttonStyle}
-                    title="Augmenter"
-                    onPress={() => dispatch({ type: 'affectBlue', payload: colorIncrement })}
-                />
-                <Button
-                    style={styles.buttonStyle}
-                    title="Diminuer"
-                    onPress={() => dispatch({ type: 'affectRed', payload: -colorIncrement })}
-                />
-            </View>
+            <PlusMinusButtons titre="Rouge" dispatch={dispatch} type="affectRed" />
+            <PlusMinusButtons titre="Vert" dispatch={dispatch} type="affectGreen" />
+            <PlusMinusButtons titre="Bleu" dispatch={dispatch} type="affectBlue" />
             <View
                 style={{
                     ...styles.myDiv,
                     backgroundColor: `rgb(${colorState.red},${colorState.green},${colorState.blue})`,
-                    alignSelf: 'flex-start',
+
                     width: '40%',
                     height: 90
                 }}
@@ -107,8 +73,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
 
-        flexWrap: 'wrap',
-        marginTop: 60,
+        alignItems: 'center',
+        marginTop: 28,
         backgroundColor: '#fff'
     },
     buttonsBlock: {

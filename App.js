@@ -18,17 +18,15 @@ export default function App() {
                 screenOptions={({ route }) => ({
                     tabBarLabel: ({ focused, color }) => {
                         let titre;
-
                         if (route.name === 'Welcome') {
-                            titre = focused ? 'Bienvenue' : 'Voir bienvenue';
+                            titre = focused ? 'Bienvenue' : 'Voir ici!';
                         } else if (route.name === 'Colors') {
-                            titre = 'Jeu de couleurs';
+                            titre = 'Couleurs';
                         } else if (route.name === 'Profile') {
                             titre = 'Mon Profile';
                         }
-
                         // On peut retourner n'importe quel composant ici:
-                        return <Text style={{ color: color }}>{titre}</Text>;
+                        return <Text style={{ color: color, margin: 12, fontSize: 18 }}>{titre}</Text>;
                     }
                 })}
                 tabBarOptions={{
