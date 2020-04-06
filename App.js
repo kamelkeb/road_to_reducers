@@ -6,9 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //on importe nos écrans
 import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
 import ColorsScreen from './src/screens/ColorsScreen/ColorsScreen';
-import ProfileScreen from './src/screens/ProfileScreen/ProfileScreen';
+import ProfileStack from './src/screens/ProfileScreen/ProfileStack';
 
-// On crée notre container
+// On crée notrenavigator
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
-                    tabBarLabel: ({ focused, color, size }) => {
+                    tabBarLabel: ({ focused, color }) => {
                         let titre;
 
                         if (route.name === 'Welcome') {
@@ -38,7 +38,7 @@ export default function App() {
             >
                 <Tab.Screen name="Welcome" component={WelcomeScreen} />
                 <Tab.Screen name="Colors" component={ColorsScreen} />
-                <Tab.Screen name="Profile" component={ProfileScreen} />
+                <Tab.Screen name="Profile" component={ProfileStack} />
             </Tab.Navigator>
         </NavigationContainer>
     );
