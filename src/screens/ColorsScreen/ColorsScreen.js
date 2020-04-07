@@ -30,6 +30,15 @@ const premierReducer = (state, action) => {
     }
 };
 
+// Mettre en place un context:
+// 1- créer le context et l'exporter
+export const ColorsContext = React.createContext();
+// L'objet obtenu disposera d'un champ 'Provider'
+// 2-  On utilisera ce champ pour définir un HOC spécial:
+export const ColorsProvider = ({ children }) => {
+    return <ColorsContext.Provider value={'donnée du context'}>{children}</ColorsContext.Provider>;
+};
+
 const affectColor = (color, colorIncrement) => Math.min(Math.max(color + colorIncrement, 0), 255);
 
 const ColorsScreen = (props) => {

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity, SafeAreaVie
 const WelcomeScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Welcome Screen</Text>
+            <Text>Bonjour !</Text>
         </SafeAreaView>
     );
 };
