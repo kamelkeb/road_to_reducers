@@ -1,16 +1,16 @@
-import React, { useState, useReducer } from 'react';
-import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const PlusMinusButtons = ({ titre, dispatch, type }) => {
+const PlusMinusButtons = ({ color, colorHandler }) => {
     const colorIncrement = 10;
     return (
         <View style={styles.buttonsBlock}>
-            <Text style={styles.titreStyle}>{titre}</Text>
+            <Text style={styles.titreStyle}>{color}</Text>
             <View style={{ flexDirection: 'row', height: 48 }}>
-                <TouchableOpacity onPress={() => dispatch({ type: type, payload: -colorIncrement })}>
+                <TouchableOpacity onPress={() => colorHandler(-colorIncrement)}>
                     <Text style={styles.buttonStyle}>-</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch({ type: type, payload: colorIncrement })}>
+                <TouchableOpacity onPress={() => colorHandler(colorIncrement)}>
                     <Text style={styles.buttonStyle}>+</Text>
                 </TouchableOpacity>
             </View>

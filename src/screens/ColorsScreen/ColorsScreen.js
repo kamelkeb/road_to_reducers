@@ -4,13 +4,13 @@ import PlusMinusButtons from '../../components/PlusMinusButtons/PlusMinusButtons
 import { ColorsContext } from '../../contexts/ColorsContext';
 
 const ColorsScreen = (props) => {
-    const { colorState, dispatch } = useContext(ColorsContext);
+    const { colorState, affectRed, affectGreen, affectBlue } = useContext(ColorsContext);
     return (
         <SafeAreaView style={styles.container}>
             <Text>Colors Screen</Text>
-            <PlusMinusButtons titre="Rouge" dispatch={dispatch} type="affectRed" />
-            <PlusMinusButtons titre="Vert" dispatch={dispatch} type="affectGreen" />
-            <PlusMinusButtons titre="Bleu" dispatch={dispatch} type="affectBlue" />
+            <PlusMinusButtons titre="Rouge" colorHandler={affectRed} />
+            <PlusMinusButtons titre="Vert" colorHandler={affectGreen} />
+            <PlusMinusButtons titre="Bleu" colorHandler={affectBlue} />
             <View
                 style={{
                     ...styles.myDiv,

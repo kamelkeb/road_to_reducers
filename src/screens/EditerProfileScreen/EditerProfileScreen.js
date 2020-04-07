@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { ColorsContext } from '../../contexts/ColorsContext';
+import ProfileForm from '../../components/ProfileForm/ProfileForm';
 
 // Pour accéder à la donnée stockée dans le context, on doit:
 // 1- l'importer
@@ -18,6 +19,7 @@ const EditerProfileScreen = (props) => {
             }}
         >
             <Text>Editeur de profile</Text>
+            <ProfileForm />
             <View>{<Button title="Retour au welcome" onPress={() => props.navigation.navigate('Welcome')} />}</View>
             <View>
                 <Text>Ceci un screen de démo</Text>

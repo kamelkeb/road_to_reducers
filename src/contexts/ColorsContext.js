@@ -30,6 +30,20 @@ const premierReducer = (state, action) => {
 // Fonction permettant de garder la valeur d'une couleur entre 0 et 255
 const affectColor = (color, colorIncrement) => Math.min(Math.max(color + colorIncrement, 0), 255);
 
+// C'est une étape indispensable pour nous permettre d'aller vers
+// "l'usine à contexts", on va "cacher" au reste du monde
+// les strings donnant le type des actions. On encapsule ça dans
+// des fonctions
+const affectRed = (dispatch) => {
+    return (colorIncrement) => dispatch({ type: 'affectRed', payload: colorIncrement });
+};
+const affectGreen = (dispatch) => {
+    return (colorIncrement) => dispatch({ type: 'affectGreen', payload: colorIncrement });
+};
+const affectBlue = (dispatch) => {
+    return (colorIncrement) => dispatch({ type: 'affectBlue', payload: colorIncrement });
+};
+
 // Mettre en place un context:
 // 1- créer le context et l'exporter
 export const ColorsContext = React.createContext();
@@ -40,10 +54,21 @@ export const ColorsProvider = ({ children }) => {
     // deux argument (elle peut en prendre un 3ème, voir la doc au besoin)
     // Le premier doit être un reducer
     // le deuxième argument sera la valeur initiale de l'état
-    const [ colorState, dispatch ] = useReducer(premierReducer, { red: 0, green: 0, blue: 0 });
+    const [ colorState, dispatch ] = useReducer(premierReducer, { red: 180, green: 180, blue: 180 });
     // useReduce rend le state (composé de petits bouts mis dans un tout unique) et une fonction 'dispatch'
     // la fonction dispatch pourra être passée à d'autres composants qui l'utiliseront en lui
     // passant un objet action
 
-    return <ColorsContext.Provider value={{ colorState, dispatch }}>{children}</ColorsContext.Provider>;
+    return (
+        <ColorsContext.Provider
+            value={{
+                colorState,
+                affectRed: affectRed(dispatch),
+                affectGreen: affectGreen(dispatch),
+                affectBlue: affectGreen(dispatch)
+            }}
+        >
+            {children}
+        </ColorsContext.Provider>
+    );
 };
