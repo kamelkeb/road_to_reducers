@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, FlatList, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
-import BlockComponent from '../../components/Block/BlockComponent';
-import { ColorsContext } from '../ColorsScreen/ColorsScreen';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
+import { ColorsContext } from '../../contexts/ColorsContext';
 
 // Pour accéder à la donnée stockée dans le context, on doit:
 // 1- l'importer
@@ -9,13 +8,19 @@ import { ColorsContext } from '../ColorsScreen/ColorsScreen';
 // "l'état" qui y est mis, on dira la valeur stockée
 
 const EditerProfileScreen = (props) => {
-    const contextValue = useContext(ColorsContext);
+    const { colorState } = useContext(ColorsContext);
+    const rgbColor = `rgb(${colorState.red},${colorState.green},${colorState.blue})`;
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+            style={{
+                ...styles.container,
+                backgroundColor: rgbColor
+            }}
+        >
             <Text>Editeur de profile</Text>
             <View>{<Button title="Retour au welcome" onPress={() => props.navigation.navigate('Welcome')} />}</View>
             <View>
-                <Text>{contextValue}</Text>
+                <Text>Ceci un screen de démo</Text>
             </View>
         </SafeAreaView>
     );
@@ -24,7 +29,9 @@ const EditerProfileScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexWrap: 'wrap',
+
+        alignItems: 'center',
+        marginTop: 28,
         backgroundColor: '#fff'
     }
 });

@@ -5,8 +5,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //on importe nos écrans
 import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
-import ColorsScreen, { ColorsProvider } from './src/screens/ColorsScreen/ColorsScreen';
+import ColorsScreen from './src/screens/ColorsScreen/ColorsScreen';
 import ProfileStack from './src/screens/ProfileScreen/ProfileStack';
+import { ColorsProvider } from './src/contexts/ColorsContext';
 // import librairie de pesistance de donnée
 // import AsyncStorage from '@react-native-community/async-storage';
 
@@ -41,6 +42,7 @@ const App = () => {
     }; */
 
     // Wrapper le tout avec le Provider pour rendre le contexte accessible partout
+
     return (
         <ColorsProvider>
             <NavigationContainer>
