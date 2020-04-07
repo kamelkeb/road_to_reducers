@@ -1,4 +1,9 @@
-import React, { useReducer } from 'react';
+// On peut voir en ce fichier, la partie "modèle" au sens MVC
+// et surtout, au sens React modern, fonctionnel, orienté hooks
+// et faisant usage de l'API Context
+// On remarquera que c'est du javascript pur, sans react ici!!!!
+// On s'est conformé à la discipline react mais sans écrire du react ici!!!!
+import createDataContext from './createDataContext';
 
 // *** Un reducer est une fonction
 // qui prend deux argument, le premier sera le state courant
@@ -44,31 +49,21 @@ const affectBlue = (dispatch) => {
     return (colorIncrement) => dispatch({ type: 'affectBlue', payload: colorIncrement });
 };
 
-// Mettre en place un context:
-// 1- créer le context et l'exporter
-export const ColorsContext = React.createContext();
-// L'objet obtenu disposera d'un champ 'Provider'
-// 2-  On utilisera ce champ pour définir un HOC spécial:
-export const ColorsProvider = ({ children }) => {
-    // udeReducer est une fonction spéciale (un hook), qui prend dans le cas présent
-    // deux argument (elle peut en prendre un 3ème, voir la doc au besoin)
-    // Le premier doit être un reducer
-    // le deuxième argument sera la valeur initiale de l'état
-    const [ colorState, dispatch ] = useReducer(premierReducer, { red: 180, green: 180, blue: 180 });
-    // useReduce rend le state (composé de petits bouts mis dans un tout unique) et une fonction 'dispatch'
-    // la fonction dispatch pourra être passée à d'autres composants qui l'utiliseront en lui
-    // passant un objet action
+export const { Context, Provider } = createDataContext(
+    premierReducer,
+    { affectBlue, affectGreen, affectRed },
+    { red: 180, green: 180, blue: 180 }
+);
 
-    return (
-        <ColorsContext.Provider
-            value={{
-                colorState,
-                affectRed: affectRed(dispatch),
-                affectGreen: affectGreen(dispatch),
-                affectBlue: affectGreen(dispatch)
-            }}
-        >
-            {children}
-        </ColorsContext.Provider>
-    );
-};
+// En définitive, pour mettre en place un context avec provider et reducer (la totale)
+// pour une nouvelle ressource il nous suffira:
+// 1- créer un fichier spécifique à la ressource (ici ColorContext.js)
+// 2 -dans ce ce fichier, définir le reducer adéquat
+// 3- définir les fonction qui permettront de modifier l'état avec le pattern:
+//      const verbeNomRessource = (dispatch) => {
+//              return (args nécessaires ou pas d'arg)=>{
+//                          // faire le travail que l'on veut
+//                          // au besoin un fetch de données, suivi ou pas, précédé ou pas par
+//                          // un appel à dispatch
+//              }
+//      }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native';
-import { ColorsContext } from '../../contexts/ColorsContext';
+import { Context as ColorsContext } from '../../contexts/ColorsContext';
 import ProfileForm from '../../components/ProfileForm/ProfileForm';
 
 // Pour accéder à la donnée stockée dans le context, on doit:
@@ -9,8 +9,8 @@ import ProfileForm from '../../components/ProfileForm/ProfileForm';
 // "l'état" qui y est mis, on dira la valeur stockée
 
 const EditerProfileScreen = (props) => {
-    const { colorState } = useContext(ColorsContext);
-    const rgbColor = `rgb(${colorState.red},${colorState.green},${colorState.blue})`;
+    const { state } = useContext(ColorsContext);
+    const rgbColor = `rgb(${state.red},${state.green},${state.blue})`;
     return (
         <SafeAreaView
             style={{

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import PlusMinusButtons from '../../components/PlusMinusButtons/PlusMinusButtons';
-import { ColorsContext } from '../../contexts/ColorsContext';
+import { Context as ColorsContext } from '../../contexts/ColorsContext';
 
 const ColorsScreen = (props) => {
-    const { colorState, affectRed, affectGreen, affectBlue } = useContext(ColorsContext);
+    const { state, affectRed, affectGreen, affectBlue } = useContext(ColorsContext);
     return (
         <SafeAreaView style={styles.container}>
             <Text>Colors Screen</Text>
@@ -14,7 +14,7 @@ const ColorsScreen = (props) => {
             <View
                 style={{
                     ...styles.myDiv,
-                    backgroundColor: `rgb(${colorState.red},${colorState.green},${colorState.blue})`,
+                    backgroundColor: `rgb(${state.red},${state.green},${state.blue})`,
 
                     width: '40%',
                     height: 90
